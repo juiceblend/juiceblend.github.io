@@ -1,2 +1,2 @@
-# juiceblend.github.io
-Personal Website
+# Justin's Blog
+Hey :)
