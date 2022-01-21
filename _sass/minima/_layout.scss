@@ -2,6 +2,7 @@
  * Site header
  */
 .site-header {
+  color:bisque;
   border-top: 5px solid $grey-color-dark;
   border-bottom: 1px solid $grey-color-light;
   min-height: $spacing-unit * 1.865;
@@ -18,15 +19,17 @@
   margin-bottom: 0;
   float: left;
 
-  &,
-  &:visited {
-    color: $grey-color-dark;
-  }
+  color: #000;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-size: $base-font-size * 5;
+  margin: 40px;
+  text-transform: uppercase;
 }
 
 .site-nav {
   float: right;
-  line-height: $base-line-height * $base-font-size * 2.25;
+  line-height: $base-line-height * $base-font-size * 5;
 
   .nav-trigger {
       display: none;
@@ -39,6 +42,7 @@
   .page-link {
     color: $text-color;
     line-height: $base-line-height;
+    vertical-align: bottom;
 
     // Gaps between nav items, but not on the last one
     &:not(:last-child) {
@@ -105,69 +109,36 @@
 /**
  * Site footer
  */
-.site-footer {
-  border-top: 1px solid $grey-color-light;
-  padding: $spacing-unit 0;
-}
-
-.footer-heading {
-  @include relative-font-size(1.125);
-  margin-bottom: $spacing-unit / 2;
-}
-
-.contact-list,
-.social-media-list {
-  list-style: none;
-  margin-left: 0;
-}
-
-.footer-col-wrapper {
-  @include relative-font-size(0.9375);
+ .site-footer {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+  font-size: $small-font-size;
   color: $grey-color;
-  margin-left: -$spacing-unit / 2;
-  @extend %clearfix;
-}
+  clear: both;
+  margin-bottom: 30px;
 
-.footer-col {
-  float: left;
-  margin-bottom: $spacing-unit / 2;
-  padding-left: $spacing-unit / 2;
-}
-
-.footer-col-1 {
-  width: -webkit-calc(35% - (#{$spacing-unit} / 2));
-  width:         calc(35% - (#{$spacing-unit} / 2));
-}
-
-.footer-col-2 {
-  width: -webkit-calc(20% - (#{$spacing-unit} / 2));
-  width:         calc(20% - (#{$spacing-unit} / 2));
-}
-
-.footer-col-3 {
-  width: -webkit-calc(45% - (#{$spacing-unit} / 2));
-  width:         calc(45% - (#{$spacing-unit} / 2));
-}
-
-@include media-query($on-laptop) {
-  .footer-col-1,
-  .footer-col-2 {
-    width: -webkit-calc(50% - (#{$spacing-unit} / 2));
-    width:         calc(50% - (#{$spacing-unit} / 2));
+  a {
+    color: $grey-color;
   }
-
-  .footer-col-3 {
-    width: -webkit-calc(100% - (#{$spacing-unit} / 2));
-    width:         calc(100% - (#{$spacing-unit} / 2));
+  p {
+    margin: 5px auto;
+    width: 200px;
+  }
+  img {
+    width: 26px;
+    height: 26px;
+    margin: 0 4px;
+    display: block;
+    float: left;
   }
 }
 
-@include media-query($on-palm) {
-  .footer-col {
-    float: none;
-    width: -webkit-calc(100% - (#{$spacing-unit} / 2));
-    width:         calc(100% - (#{$spacing-unit} / 2));
-  }
+.footer-links {
+  display: flex;
+  justify-content: center;
 }
 
 
