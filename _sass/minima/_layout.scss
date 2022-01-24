@@ -1,8 +1,11 @@
 /**
  * Site header
  */
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500&display=swap');
+
 .site-header {
-  color:rgb(172, 112, 40);
+  // background-image: linear-gradient(white, rgb(245, 200, 53));
+  background-color: #F0DACF;
   border-top: 5px solid $grey-color-dark;
   border-bottom: 1px solid $grey-color-light;
   min-height: $spacing-unit * 1.865;
@@ -13,16 +16,23 @@
 
 .site-title {
   @include relative-font-size(1.625);
+  
+
   font-weight: 300;
   line-height: $base-line-height * $base-font-size * 2.25;
   letter-spacing: -1px;
   float: left;
-
-  color: #000;
   font-family: 'Signika', sans-serif;
   font-size: $base-font-size * 4;
   margin: 40px 20px 30px 0px;
-  text-transform: uppercase;
+}
+
+#Two {
+  color: #D67E97;
+}
+
+#Angles {
+  color: #A63D5E;
 }
 
 .site-nav {
