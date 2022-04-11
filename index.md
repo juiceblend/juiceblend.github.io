@@ -11,16 +11,16 @@ layout: default
           <span>
             {% for tag in post.tags %}
               {% capture tag_name %}{{ tag }}{% endcapture %}
-              <a class="post-tag" href="/lil-log/tag/{{ tag_name }}"><nobr>{{ tag_name }}</nobr>&nbsp;</a>
+              <a class="post-tag" href="/posts/tag/{{ tag_name }}"><nobr>{{ tag_name }}</nobr>&nbsp;</a>
             {% endfor %}
           </span>
         </span>
 
         <h2>
           <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-          {% if post.excerpt %}
+          <!-- {% if post.excerpt %}
             {{ post.excerpt }}
-          {% endif %}
+          {% endif %} -->
         </h2>
       </li>
     {% endfor %}

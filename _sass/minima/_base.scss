@@ -126,6 +126,14 @@ a {
   }
 }
 
+.blog-link {
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 
 /**
  * Blockquotes

@@ -4,6 +4,15 @@ layout: default
 
 <!--Add MathJax to render latex-->
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script>
+  function revealOnClick(id){
+    if(document.getElementById(id).style.display=='none') {
+      document.getElementById(id).style.display=''
+    }else{
+      document.getElementById(id).style.display='none'
+    }
+  }
+</script>
 
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
