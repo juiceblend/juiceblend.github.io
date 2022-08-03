@@ -1,0 +1,91 @@
+.grid {
+    width: 200px;
+    height: 400px;
+
+    /* display: flex makes the divs in the grid come back instead of going down 200 in a row */
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #F0DACF;
+}
+
+/* selects only the divs in the grid */
+.container {
+    display: flex;
+}
+
+.scorebox {
+    margin-left: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid div {
+    height: 20px;
+    width: 20px;
+}
+
+.mini-grid {
+    margin-top: 50px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #F0DACF;
+}
+
+.mini-grid div {
+    height: 20px;
+    width: 20px;
+}
+
+#start-button {
+  background-color: #EA4C89;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#start-button:hover{
+  background-color: #F082AC;
+}
+
+.tetromino {
+    box-sizing: border-box;
+    border-style: outset;
+}
+
+.lTetromino {
+    background-color: orange;
+}
+.zTetromino {
+    background-color: red;
+}
+.tTetromino {
+    background-color: purple;
+}
+.oTetromino {
+    background-color: green;
+}
+.iTetromino {
+    background-color: blue;
+}
