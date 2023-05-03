@@ -262,3 +262,16 @@ table {
     border: 1px solid $grey-color-light;
   }
 }
+
+.slider {
+  width: 50%;
+  height: 15px;
+  border-radius: 5px;  
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+}
+
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}

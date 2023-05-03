@@ -1,0 +1,173 @@
+---
+layout: post
+title:  "Finding Roots"
+---
+
+In my recent workings, I've stumbled upon the following polynomial: 
+
+$$ p(x) = x^3 + x + 2.$$
+
+I'd like to know whether there's a real number \\(x\\) which makes the polynomial 0. That is, does \\(p(x)\\) have a real root? 
+
+Let's look for one together! 
+
+To test the waters, let's first try some really negative \\(x\\), such as \\(x_- = -100\\). In this case, 
+
+$$ p(-100) = (-100)^3 + (-100) + 2 = -1000098$$
+
+which is *really* negative. 
+
+Likewise, if we try some really positive \\(x\\) such as \\(x_+ = 100\\), we get \\(p(100) = 100^3 + 100 + 1\\) which is most definitely positive.
+
+Okay. If \\(p(-100)\\) is on one side of \\(0\\), and \\(p(100)\\) is on the other side, it feels like there *must* be a root in between \\(x_- = -100\\) and \\(x_+ = 100\\). 
+
+Imagine sliding \\(x_+\\) and  \\(x_-\\) towards \\(0\\). What will the outputs \\(p(x_-), p(x_+)\\) look like? 
+
+<img src="{{ '../assets/images/FTA/FTA-cubic-question.png' | relative_url }}" width="500" height="297" />
+
+They start at \\(p(-100)\\) and \\(p(100)\\), respectively, and might wiggle around a bit, but eventually must both end up at \\(p(0)\\). Crucially:
+
+ **Since \\(p(x_-), p(x_+)\\) started on opposite sides of \\(0\\), one of them must cross \\(0\\) at some point for them to meet**. 
+
+ I like to imagine a door at \\(0\\): for \\(p(-100)\\) and \\(p(100)\\) to reach each other, one of them must pass through the door.
+
+<img src="{{ '../assets/images/FTA/FTA-cubic-door.png' | relative_url }}" width="500" height="297" />
+
+But this is exactly what we were looking for: the value of \\(x\\) at which point \\(p(x)\\) crosses \\(0\\) is a root of \\(p\\)! It's a bit of a strange way to look at things, but I promise it'll pay off.
+
+Now for a harder question. Suppose I added an even-degree term to the front of my polynomial to make a new polynomial
+
+$$ q(x) = x^4 + x^3 + x + 2. $$
+
+Does \\(q(x)\\) still have a root?
+Our strategy from before falls apart: for both really negative \\(x\\) and really positive \\(x\\), \\(q(x)\\) becomes positive; there's not any particular reason why it might have to cross the real axis. In fact, graphing \\(q(x)\\) shows that it genuinely doesn't have a real root.
+
+<img src="{{ '../assets/images/FTA/FTA-quartic-real.png' | relative_url }}" width="500" height="156" />
+
+What a bummer - roots are really useful. Being the mathematicians that we are, we can't give up just like that. Let's try looking in the complex numbers, and see whether there might be a root lying there.
+
+**A quick review of complex numbers:**
+
+We can describe every complex number \\(z\\) by how far away it is from the origin, which we'll call \\(r\\), and the angle it makes with the positive real axis, which we'll call \\(\theta\\). Using Euler's identity, there's a super-neat way to write this information: 
+
+$$ z = re^{i\theta}. $$
+
+If we take a power of \\(z\\), we'll get a complex number with radius \\(r^n\\), and angle \\(n\theta\\): 
+
+$$ z^n = r^n e^{in\theta}. $$
+
+<img src="{{ '../assets/images/FTA/FTA-power.png' | relative_url }}" width="500" height="362" />
+
+In particular, if we imagine sliding \\(z\\) once around a circle of radius \\(r\\), \\(z^n\\) will slide \\(n\\) times around a circle of radius \\(r^n\\).
+
+<html>
+<body>
+  <div>
+    <input type="range" min="0" max="100" value="0" class="slider" id="z_power_slider">
+  </div>
+  <canvas id="z_power" width="500" height="250">
+    <p>Sliding z around the origin.</p>
+  </canvas>
+  <script>
+    // Get the canvas element and its context
+    const canvas = document.getElementById("z_power");
+    const ctx = canvas.getContext("2d");
+    const width = canvas.width;
+    const height = canvas.height;
+    const axis_length = 3 * canvas.height/8;
+    const r = axis_length/2;
+    function drawGraph(theta) {
+      ctx.clearRect(0, 0, width, height);
+      ctx.strokeStyle = "rgb(0, 0, 0)";      
+      ctx.beginPath();
+      //draw input graph
+      ctx.moveTo(canvas.width/4, canvas.height/2 - axis_length);
+      ctx.lineTo(canvas.width/4, canvas.height/2 + axis_length);
+      ctx.moveTo(canvas.width/4 - axis_length, canvas.height/2);
+      ctx.lineTo(canvas.width/4 + axis_length, canvas.height/2);
+      //draw output graph
+      ctx.moveTo(3*canvas.width/4, canvas.height/2 - axis_length);
+      ctx.lineTo(3*canvas.width/4, canvas.height/2 + axis_length);
+      ctx.moveTo(3*canvas.width/4 - axis_length, canvas.height/2);
+      ctx.lineTo(3*canvas.width/4 + axis_length, canvas.height/2);
+      ctx.stroke();
+      //draw circles
+      ctx.strokeStyle = "rgb(153, 0, 153)";   
+      ctx.beginPath();
+      ctx.arc (canvas.width/4, canvas.height/2, r, 0, 2 * Math.PI, true); 
+      ctx.stroke();    
+      ctx.beginPath();
+      ctx.arc (3 * canvas.width/4, canvas.height/2, 1.6*r, 0, 2 * Math.PI, true); 
+      ctx.stroke(); 
+      //draw points
+      ctx.fillStyle = "rgb(0,0,0)";
+      ctx.beginPath(); 
+      ctx.arc (canvas.width/4 + r*Math.cos(theta), canvas.height/2 - r*Math.sin(theta), 5, 0, 2 * Math.PI, false); 
+      ctx.fill();
+      ctx.beginPath(); 
+      ctx.arc (3*canvas.width/4 + 1.6*r*Math.cos(3*theta), canvas.height/2 - 1.6*r*Math.sin(3*theta), 5, 0, 2 * Math.PI, false); 
+      ctx.fill();
+      //for (var x = -10; x <= 10; x += 0.1) {
+      //  var y = Math.pow(x, 2) * scale;
+      //  ctx.lineTo(canvas.width/2 + x*20, canvas.height/2 - y*20);
+      //}
+      arrow({x: canvas.width/4, y: canvas.height/2}, {x: canvas.width/4 + r*Math.cos(theta), y: canvas.height/2 - r*Math.sin(theta)}, 10);
+      arrow({x: 3*canvas.width/4, y: canvas.height/2}, {x: 3*canvas.width/4 + 1.6*r*Math.cos(3*theta), y: canvas.height/2 - 1.6*r*Math.sin(3*theta)}, 10);
+      function arrow (p1, p2, size) {
+        var angle = Math.atan2((p2.y - p1.y) , (p2.x - p1.x));
+        var hyp = Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+        ctx.save();
+        ctx.translate(p1.x, p1.y);
+        ctx.rotate(angle);
+        // line
+        ctx.beginPath();	
+        ctx.moveTo(0, 0);
+        ctx.lineTo(hyp - size, 0);
+        ctx.stroke();
+        // triangle
+        ctx.fillStyle = "rgb(153, 0, 153)";
+        ctx.beginPath();
+        ctx.lineTo(hyp - size, size);
+        ctx.lineTo(hyp, 0);
+        ctx.lineTo(hyp - size, -size);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+    // Add event listener to the slider
+    var slider = document.getElementById("z_power_slider");
+    slider.addEventListener("input", function() {
+      var theta = 2*Math.PI * slider.value / 100;
+      drawGraph(theta);
+    });
+    // Initial draw with theta = 0
+    drawGraph(0);
+  </script>
+</body>
+</html>
+
+A *polynomial* \\(p(z)\\) is a sum of these powers of \\(z\\), with each power scaled by some amount.
+
+---
+
+Now, having gotten complex numbers into our head, how can we look for a complex root of \\(q\\)? 
+
+Just as we tried taking a far-away positive point and a far-away negative point to surround \\(0\\) in the real numbers, let's try taking a far-away point in *every* direction to surround \\(0\\) in the complex numbers. That is, for each \\(0 \le \theta \le 2\pi\\), let's take \\(z = 100 e^{i \theta}\\). The corresponding value of \\(q(z)\\) is
+
+$$ q(100 e^{i \theta}) = 100000000 e^{4i \theta} + 1000000 e^{3i\theta} + 100e^{i\theta} + 2.$$
+
+Notice how the first term is *much* bigger than all the rest of the terms. That is, for \\(z\\) far-away, \\(q(z)\\) looks roughly like \\(z^4\\).
+
+<img src="{{ '../assets/images/FTA/FTA-qz.png' | relative_url }}" width="500" height="385" />
+
+As \\(\theta\\) ranges from \\(0\\) to \\(2\pi\\), \\(z\\) slides once around the circle of radius \\(100\\). As we've seen above, this means \\(z^4\\) slides four times around the circle of radius \\(100^4\\). We can therefore give a rough sketch of \\(q(z_\theta)\\):
+
+<img src="{{ '../assets/images/FTA/FTA-qztheta.png' | relative_url }}" width="500" height="657" />
+
+Aha - we've surrounded 0! Now let's slide all the \\(z_\theta\\) in towards \\(0\\).
+
+<img src="{{ '../assets/images/FTA/FTA-qztheta-slide.png' | relative_url }}" width="500" height="685" />
+
+Eventually, when all the \\(z_\theta\\) meet at \\(0\\), the corresponding values of \\(q(z_\theta)\\) must meet at \\(q(0)\\). But to do so, **the loop \\(q(z_\theta)\\) must pass through 0**. In fact, it must do so four times, since it was wound four times around \\(0\\)! For each time \\(q(z_\theta)\\) passes through \\(0\\), the corresponding value \\(z_\theta\\) must be a root of \\(q\\).
+
+In fact, this method works to show that *any* polynomial \\(q(z)\\) has a root in the complex numbers.

@@ -1,0 +1,162 @@
+---
+layout: post
+title:  "ODEs - A Linear Algebra Perspective [unfinished]"
+date:   2022-12-24 11:16:42 +0000
+tags: 
+---
+
+### bundle exec jekyll serve
+
+- *I've taken a course on differential equations, but I feel like I don't really know what's going on under the hood.*
+
+- *Why did we do all that stuff about Hermitian matrices in linear algebra?*
+
+- *I learned about Green's functions in engineering and they seem like black magic.*
+
+<br/>
+
+If you've taken a first course on differential equations, or maybe courses in physics or engineering, chances are you've worked with **linear ordinary differential equations (linear ODEs for short)**: equations of the form
+
+$$ a_n(x) \frac{d^ny}{dx^n} + \cdots + a_{1}(x)\frac{dy}{dx} + a_0 y = f(x). $$
+
+You may have learned to solve this equation when \\(f(x)\\) takes on nice forms such as \\(e^x, \sin(x),\\) or \\(ax+ b\\) by guessing a solution of a similar form and solving for the correct coefficients. But what if \\(f(x)\\) isn't particularly nice - how could we go about solving such an equation in general? 
+
+ In this post, we'll get an idea of how we might do so by getting acquainted with the idea of **functions** as **vectors**. Using this perspective, we can use all the tools we know in solving the familiar linear matrix equation \\(A\mathbf{x} = \mathbf{b}\\) to help solve linear ODEs.
+
+ <br>
+
+<img src="{{ '../assets/images/12-24-ODEs/ODEs-comparison.png' | relative_url }}" width="500" height="646" />
+
+ <br>
+
+<h1> Functions as Vectors </h1>
+
+
+<h1> ODEs as Linear Equations </h1>
+
+The derivative is a linear map between functions.
+
+To start, the string of derivatives on the left hand side of our equation is a bit cumbersome and hides what we are really trying to get at. Looking at what the left hand side is doing, we can see that it takes *in* some input function \\(y(x)\\) and spits *out* a corresponding output function which is some combination of \\(y, y', y'', \dots\\). To encapsulate this idea, we write our equation as 
+
+$$ \mathcal{L} y = f(x)$$
+
+where
+
+$$\mathcal{L} = a_n(x) \frac{d^n}{dx^n} + \cdots + a_{1}\frac{d}{dx} + a_0.$$
+
+We can think of \\(\mathcal{L}\\) as *operating* on functions \\(y\\), so we call \\(\mathcal{L}\\) an **operator**. In other words: an operator is a map taking functions to functions. 
+
+By properties of derivatives, we can check that \\(\mathcal{L}\\) is linear:
+
+$$ \mathcal{L}(ay_1 + by_2) = a\mathcal{y_1} + b\mathcal{y_2}. $$
+
+This is what it means for the ODE to be a *linear* ODE.
+
+Now we have our linear ODE 
+
+$$ \mathcal{L} y = f(x) $$
+
+which looks a lot like the familiar matrix equation
+
+$$
+Ax = b.
+$$
+
+Let's explore how the tools and intuitions we have from linear algebra translate to solving ODEs.
+
+<h1> Solving ODEs </h1>
+
+We'll assume for this post **homogeneous boundary conditions** of the form \\(y^{(k)}(a) = y^{(k)}(b) = 0\\) for \\(0 \le k \le n\\). By restricting our attention to this subspace, we guarentee that our equation \\(\mathcal{L}y = f(x)\\) has a unique solution; i.e. that \\(\mathcal{L}\\) is *invertible*. 
+
+<br/>
+Given a matrix equation \\(Ax = b\\) for \\(A\\) invertible, how might we solve for \\(x\\)?
+
+- If we can express our equation in a basis in which \\(A\\) is diagonal, then we can compare coefficients to solve for \\(x\\). This corresponds in ODE-world to **Sturm-Liouville Theory**.
+
+- If not, then we might as well use the standard basis and try to invert A. This corresponds in ODE-world to **Green's Functions**.
+
+Let's get started!
+
+<h1> Diagonalizing a Linear Operator </h1>
+
+In the matrix equation \\(Ax = b\\), if \\(A\\) happens to be diagonal, then the equation is easy to solve: just compare components. 
+
+$$
+\begin{pmatrix}
+\lambda_1 & 0 & 0 \\
+0 & \lambda_2 & 0 \\
+0 & 0 & \lambda_3 
+\end{pmatrix}
+\begin{pmatrix}
+x_1 \\
+x_2 \\
+x_3
+\end{pmatrix}
+=
+\begin{pmatrix}
+b_1 \\
+b_2 \\
+b_3
+\end{pmatrix} 
+$$
+
+gives
+
+$$
+\begin{pmatrix}
+x_1 \\
+x_2 \\
+x_3
+\end{pmatrix}
+=
+\begin{pmatrix}
+b_1/\lambda_1 \\
+b_2/\lambda_2 \\
+b_3/\lambda_3
+\end{pmatrix}.
+$$
+
+Thus, if we can express our equation in a basis in which \\(A\\) is diagonal, then we can solve the matrix equation.
+
+One class of matrices which we know can always be diagonalized are **hermitian** matrices: those matrices \\(A\\) for which \\(A^\dagger = A\\). In fact, we know that hermitian matrices can always be diagonalized in a super nice way: if \\(A\\) is Hermitian, then we can always find an *orthonormal* eigenbasis for \\(A\\). [elaborate: eigenvectors with different eigenvalues are automatically orthogonal]
+
+This is brilliant because once we find our orthonormal eigenbasis \\(A = (a_1, a_2, \dots, a_n)\\), we can easily find \\(x\\) and \\(b\\) in this basis by projecting onto the basis vectors.
+
+Thus, we've reduced the problem of solving \\(Ax = b\\) to the problem of finding the eigenvectors of \\(A\\). Not too bad.
+
+Into ODE world!
+
+<h3> Self-Adjoint Operators </h3>
+
+What does a Hermitian matrix look like in ODE world? In particular, a Hermitian matrix is defined in terms of matrix transposes. How could we take the transpose of a linear operator?
+
+An equivalent way to characterize hermitian matrices is the following: let the complex inner product be \\(\langle x, y\rangle = x^\dagger y\\). Then \\(A\\) is Hermitian if and only if for any two vectors \\(x, y\\), 
+
+$$
+\langle Ax, y \rangle = \langle x, Ay \rangle.
+$$
+
+This property is called *self-adjointness*, and this *does* make sense for linear operators.
+
+Given two vectors \\(x,y\\) we can write the complex inner product as \\(\langle x, y\rangle = \sum_{i=1}^n x_i^* y_i\\). Think of a function \\(f(x)\\) as a vector with infinitely many components, indexed by this continuous variable \\(x\\). Then, we can likewise define an inner product between functions 
+
+$$\langle f(x), g(x)\rangle = \int_{-\infty}^{\infty} f(x)^*g(x) dx. $$
+
+For a linear operator \\(\mathcal{L}\\), we say \\(\mathcal{L}\\) is *self-adjoint* if for any two functions \\(f(x), g(x)\\), 
+
+$$
+\langle \mathcal{L}f, g \rangle = \langle f, \mathcal{L}g \rangle.
+$$
+
+It turns out that eigenfunctions of self-adjoint operators satisfy all the nice properties that eigenvectors of self-adjoint (i.e. Hermitian) matrices did! This is known as the **Spectral Theorem**, and it's a super important result in functional analysis. 
+
+Namely, [properties].
+
+Hence, if we can just find the eigenfunctions of \\(\mathcal{L}\\), we can follow the same steps we used to solve \\(Ax = b\\) for \\(A\\) Hermitian to solve our ODE!
+
+
+[example - Fourier series]
+
+<h1> Inverting the Linear Operator </h1>
+
+

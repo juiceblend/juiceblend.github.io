@@ -202,8 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const upNextTetrominoes = [
         [1, displayWidth + 1, displayWidth*2 + 1, 2], // l
         [displayWidth*2, displayWidth*2 + 1, displayWidth + 1, displayWidth + 2], // z
-        [displayWidth, displayWidth+1, displayWidth+2, 1], // t
-        [0, 1, displayWidth, displayWidth+1], // o
+        [displayWidth*2, displayWidth*2+1, displayWidth*2+2, displayWidth+1], // t
+        [displayWidth+1, displayWidth+2, displayWidth*2 + 1, displayWidth*2+2], // o
         [1, displayWidth+1, 2*displayWidth+1, 3*displayWidth+1], // i
     ];
 
