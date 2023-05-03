@@ -180,4 +180,4 @@ Aha - we've surrounded 0! Now let's slide all the \\(z_\theta\\) in towards \\(0
 
 Eventually, when all the \\(z_\theta\\) meet at \\(0\\), the corresponding values of \\(q(z_\theta)\\) must meet at \\(q(0)\\). But to do so, **the loop \\(q(z_\theta)\\) must pass through 0**. In fact, it must do so four times, since it was wound four times around \\(0\\). For each time \\(q(z_\theta)\\) passes through \\(0\\), the corresponding value \\(z_\theta\\) must be a root of \\(q\\)!
 
-In general, this method works to show that any polynomial \\(q(z)\\) has a root in the complex numbers.
+In general, this method works to show that any polynomial \\(q(z)\\) has a root in the complex numbers. That is, every polynomial equation has a complex solution.
