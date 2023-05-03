@@ -3,56 +3,62 @@ layout: post
 title:  "Finding Roots"
 ---
 
-In my recent workings, I've stumbled upon the following polynomial: 
+> Does every polynomial equation have a solution?
+
+Let's suppose we're out and about, and happen to stumble across the following polynomial:
 
 $$ p(x) = x^3 + x + 2.$$
 
-I'd like to know whether there's a real number \\(x\\) which makes the polynomial 0. That is, does \\(p(x)\\) have a real root? 
+Does \\(p(x)\\) have a root in the real numbers?
 
-Let's look for one together! 
-
-To test the waters, let's first try some really negative \\(x\\), such as \\(x_- = -100\\). In this case, 
+Let's try and find out! To test the waters, we can first try some really negative \\(x\\), such as \\(x_- = -100\\). In this case, 
 
 $$ p(-100) = (-100)^3 + (-100) + 2 = -1000098$$
 
 which is *really* negative. 
 
-Likewise, if we try some really positive \\(x\\) such as \\(x_+ = 100\\), we get \\(p(100) = 100^3 + 100 + 1\\) which is most definitely positive.
+Likewise, if we try \\(x_+ = 100\\), we get 
 
-Okay. If \\(p(-100)\\) is on one side of \\(0\\), and \\(p(100)\\) is on the other side, it feels like there *must* be a root in between \\(x_- = -100\\) and \\(x_+ = 100\\). 
+$$p(100) = 100^3 + 100 + 1 = 1000101$$ 
+
+which is most definitely positive.
+
+This is good: if \\(p(-100)\\) is on one side of \\(0\\), and \\(p(100)\\) is on the other side, it feels like there *must* be a root in between \\(x_- = -100\\) and \\(x_+ = 100\\). 
 
 Imagine sliding \\(x_+\\) and  \\(x_-\\) towards \\(0\\). What will the outputs \\(p(x_-), p(x_+)\\) look like? 
 
 <img src="{{ '../assets/images/FTA/FTA-cubic-question.png' | relative_url }}" width="500" height="297" />
 
-They start at \\(p(-100)\\) and \\(p(100)\\), respectively, and might wiggle around a bit, but eventually must both end up at \\(p(0)\\). Crucially:
+They start at \\(p(-100)\\) and \\(p(100)\\), respectively, and might wiggle around a bit; but eventually both must end up at \\(p(0)\\). Crucially:
 
  **Since \\(p(x_-), p(x_+)\\) started on opposite sides of \\(0\\), one of them must cross \\(0\\) at some point for them to meet**. 
-
- I like to imagine a door at \\(0\\): for \\(p(-100)\\) and \\(p(100)\\) to reach each other, one of them must pass through the door.
 
 <img src="{{ '../assets/images/FTA/FTA-cubic-door.png' | relative_url }}" width="500" height="297" />
 
 But this is exactly what we were looking for: the value of \\(x\\) at which point \\(p(x)\\) crosses \\(0\\) is a root of \\(p\\)! It's a bit of a strange way to look at things, but I promise it'll pay off.
 
-Now for a harder question. Suppose I added an even-degree term to the front of my polynomial to make a new polynomial
+Now for a slightly harder question. Suppose I added an even-degree term to the front of our polynomial:
 
 $$ q(x) = x^4 + x^3 + x + 2. $$
 
 Does \\(q(x)\\) still have a root?
-Our strategy from before falls apart: for both really negative \\(x\\) and really positive \\(x\\), \\(q(x)\\) becomes positive; there's not any particular reason why it might have to cross the real axis. In fact, graphing \\(q(x)\\) shows that it genuinely doesn't have a real root.
+Our strategy from before falls apart: for both really negative \\(x\\) and really positive \\(x\\), \\(q(x)\\) becomes positive; there's not any particular reason why it might have to cross the real axis. 
 
-<img src="{{ '../assets/images/FTA/FTA-quartic-real.png' | relative_url }}" width="500" height="156" />
+<img src="{{ '../assets/images/FTA/FTA-quartic-real.png' | relative_url }}" width="500" height="123" />
 
-What a bummer - roots are really useful. Being the mathematicians that we are, we can't give up just like that. Let's try looking in the complex numbers, and see whether there might be a root lying there.
+In fact, graphing \\(q(x)\\) shows that it genuinely doesn't have a real root.
+
+<img src="{{ '../assets/images/FTA/FTA-q-graph.png' | relative_url }}" width="500" height="359" />
+
+That's a bummer - roots are really useful. Being the mathematicians that we are, we can't give up just like that. Let's try looking in the complex numbers, and see whether there might be a root lying there.
 
 **A quick review of complex numbers:**
 
-We can describe every complex number \\(z\\) by how far away it is from the origin, which we'll call \\(r\\), and the angle it makes with the positive real axis, which we'll call \\(\theta\\). Using Euler's identity, there's a super-neat way to write this information: 
+We can describe every complex number \\(z\\) by how far away it is from the origin, which we'll call \\(r\\), and the angle it makes with the positive real axis, which we'll call \\(\theta\\). Using Euler's identity, there's a neat way to write this information: 
 
 $$ z = re^{i\theta}. $$
 
-If we take a power of \\(z\\), we'll get a complex number with radius \\(r^n\\), and angle \\(n\theta\\): 
+If we take a power of \\(z\\), we'll get a complex number with radius \\(r^n\\) and angle \\(n\theta\\): 
 
 $$ z^n = r^n e^{in\theta}. $$
 
@@ -62,6 +68,7 @@ In particular, if we imagine sliding \\(z\\) once around a circle of radius \\(r
 
 <html>
 <body>
+  <div class="container">
   <div>
     <input type="range" min="0" max="100" value="0" class="slider" id="z_power_slider">
   </div>
@@ -143,6 +150,7 @@ In particular, if we imagine sliding \\(z\\) once around a circle of radius \\(r
     // Initial draw with theta = 0
     drawGraph(0);
   </script>
+  </div>
 </body>
 </html>
 
@@ -150,13 +158,15 @@ A *polynomial* \\(p(z)\\) is a sum of these powers of \\(z\\), with each power s
 
 ---
 
-Now, having gotten complex numbers into our head, how can we look for a complex root of \\(q\\)? 
+Now, how can we look for a complex root of \\(q\\)? 
 
-Just as we tried taking a far-away positive point and a far-away negative point to surround \\(0\\) in the real numbers, let's try taking a far-away point in *every* direction to surround \\(0\\) in the complex numbers. That is, for each \\(0 \le \theta \le 2\pi\\), let's take \\(z = 100 e^{i \theta}\\). The corresponding value of \\(q(z)\\) is
+Just as we took a far-away positive point and a far-away negative point to surround \\(0\\) in the real numbers, let's try taking a far-away point in *every* direction of the complex numbers. 
+
+For each \\(0 \le \theta \le 2\pi\\), let \\(z_\theta = 100 e^{i \theta}\\). The corresponding value of \\(q(z_\theta)\\) is
 
 $$ q(100 e^{i \theta}) = 100000000 e^{4i \theta} + 1000000 e^{3i\theta} + 100e^{i\theta} + 2.$$
 
-Notice how the first term is *much* bigger than all the rest of the terms. That is, for \\(z\\) far-away, \\(q(z)\\) looks roughly like \\(z^4\\).
+Notice how the first term is *much* bigger than all the rest of the terms. That is, for \\(z\\) far-away, \\(q(z)\\) looks roughly like its leading term \\(z^4\\).
 
 <img src="{{ '../assets/images/FTA/FTA-qz.png' | relative_url }}" width="500" height="385" />
 
@@ -168,6 +178,6 @@ Aha - we've surrounded 0! Now let's slide all the \\(z_\theta\\) in towards \\(0
 
 <img src="{{ '../assets/images/FTA/FTA-qztheta-slide.png' | relative_url }}" width="500" height="685" />
 
-Eventually, when all the \\(z_\theta\\) meet at \\(0\\), the corresponding values of \\(q(z_\theta)\\) must meet at \\(q(0)\\). But to do so, **the loop \\(q(z_\theta)\\) must pass through 0**. In fact, it must do so four times, since it was wound four times around \\(0\\)! For each time \\(q(z_\theta)\\) passes through \\(0\\), the corresponding value \\(z_\theta\\) must be a root of \\(q\\).
+Eventually, when all the \\(z_\theta\\) meet at \\(0\\), the corresponding values of \\(q(z_\theta)\\) must meet at \\(q(0)\\). But to do so, **the loop \\(q(z_\theta)\\) must pass through 0**. In fact, it must do so four times, since it was wound four times around \\(0\\). For each time \\(q(z_\theta)\\) passes through \\(0\\), the corresponding value \\(z_\theta\\) must be a root of \\(q\\)!
 
-In fact, this method works to show that *any* polynomial \\(q(z)\\) has a root in the complex numbers.
+In general, this method works to show that any polynomial \\(q(z)\\) has a root in the complex numbers.
