@@ -1,2 +1,1 @@
-# Justin's Blog
-Hey :)
+# Justin Chen's Personal Website

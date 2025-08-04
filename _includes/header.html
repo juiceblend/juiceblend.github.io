@@ -5,8 +5,8 @@
       {%- assign page_paths = site.header_pages | default: default_paths -%}
       {%- assign titles_size = site.pages | map: 'title' | join: '' | size -%}
       <a class="site-title" rel="author" href="{{ "/" | relative_url }}">
-        <span id="Two">Two</span> 
-        <span id="Angles">Angles</span>
+        <span id="Two">Justin</span> 
+        <span id="Angles">Chen</span>
       </a>
   
       {%- if titles_size > 0 -%}
@@ -21,9 +21,9 @@
           </label>
   
           <div class="trigger">
-            <a class="page-link hvr-underline-from-center" href="/index">Blog</a>
-            <a class="page-link hvr-underline-from-center" href="/projects">Projects</a>
-            <a class="page-link hvr-underline-from-center" href="/about">About</a>
+            <a class="page-link hvr-underline-from-center" href="/index">Home</a>
+            <a class="page-link hvr-underline-from-center" href="/teaching">Teaching</a>
+            <a class="page-link hvr-underline-from-center" href="/writing">Writing</a>
           </div>
         </nav>
       {%- endif -%}

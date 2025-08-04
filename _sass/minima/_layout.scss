@@ -25,6 +25,7 @@
   font-family: 'Signika', sans-serif;
   font-size: $base-font-size * 4;
   margin: 40px 20px 30px 0px;
+  text-decoration: none;
 }
 
 #Two {
@@ -51,6 +52,7 @@
     color: $text-color;
     line-height: $base-line-height;
     vertical-align: bottom;
+    text-decoration: none;
 
     // Gaps between nav items, but not on the last one
     &:not(:last-child) {

@@ -106,7 +106,8 @@ h1, h2, h3, h4, h5, h6 {
  */
 a {
   color: $brand-color;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: $brand-color;
 
   &:visited {
     color: darken($brand-color, 15%);
@@ -114,7 +115,7 @@ a {
 
   &:hover {
     color: $hover-color;
-    text-decoration: none;
+    text-decoration-color: $hover-color;
   }
 
   .social-media-list &:hover {
